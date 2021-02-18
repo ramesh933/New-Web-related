@@ -1,0 +1,68 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<title>Event managment</title>
+	<link rel="stylesheet" type="text/css" href="style5.css">
+</head>
+<body>
+
+	<!---Header---->
+<header>
+	<div class="container">
+		<div class="head">
+			<h1> We plan your Event</h1>
+		</div>
+	</div>
+
+<!---Navigation---->
+
+<nav>
+	<ul>
+		<li><a href="#">HOME</a></li>
+		<li><a href="#">About</a></li>
+		<li><a href="#">Location</a></li>
+		<li><a href="#">Services</a></li>
+		<li><a href="#">Contact Us</a></li>
+
+	</ul>
+</nav>
+
+<!--End of Navigation-->
+
+</header>
+
+<!---End of HEader--->
+
+<!----Showcase--->
+
+<showcase>
+
+	<div class="container">
+	<h2>Never Ending Memories</h2>
+	<p>You don't need magic to disappear. All you need is a Destination</p>
+	<button class="btn1">SHOW ON THE MAP</button>
+	<button class="btn2">MORE INFO</button>
+	</div>
+</showcase>
+
+<!--End of Showcase--->
+
+<!--- Footer---->
+
+<footer>
+	<div class="container">
+		<div class="lefty">
+			<p>Find your<br> Happiness</p>
+		</div>
+		<div class="righty">
+			<i>Where</i>
+			<input type="text" placeholder="Destination">
+			<i>when</i>
+			<input type="text" placeholder="Enter the date">
+			<a href="#" type="button" class="btn3">Search</a>
+		</div>
+	</div>
+</footer>
+<!---END of Footer--->
+</body>
+</html>

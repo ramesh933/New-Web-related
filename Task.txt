@@ -1,0 +1,215 @@
+package com.test;
+import java.sql.*;
+import java.util.Scanner;
+
+public class Project1 {
+
+	public static void main(String[] args) throws Exception {
+		// TODO Auto-generated method stub
+		Class.forName("com.mysql.jdbc.Driver");
+		Connection con=DriverManager.getConnection("jdbc:mysql://localhost:3306/hotel","root","Ak47@run@");
+		System.out.println("-----Welcome to our hotel-----\n");
+		System.out.println("Select the options to Log in: \n1) Hotel Manager\n2) Old Customer\n3) New Customer");
+		Scanner s=new Scanner(System.in);
+		int scan=s.nextInt();
+		if(scan==1) {
+			System.out.print("Welcome Manager \nPlease enter your email :");
+			String email=s.next();
+			System.out.print("Please enter your Password :");
+			String pword=s.next();
+			if(email.contains("manager@gmail.com") && pword.contains("God786")) {
+					System.out.println("Log in Successfull.");
+					System.out.println("1)To check rooms \n2) Update log \n3) To delete old customer details\n4) To add Room");
+					int op=s.nextInt();
+					if(op==1) {
+						do {
+							System.out.println("To check Rooms select the option:\n1) Total Rooms \n2) Particular Room "
+									+ "\n3) Particular Type \n4) Particular Room Check-In Date \n5) Particular Room Check-out Date ");
+							int i=s.nextInt();
+							if(i==1) {
+								PreparedStatement p=con.prepareStatement("Select *from log");
+								ResultSet re=p.executeQuery();
+								while(re.next()) {
+									System.out.println(re.getInt(1)+" "+re.getString(2)+" "+re.getString(3)+" "+re.getInt(4)+" "+re.getInt(5)+" "+re.getInt(6)+" "+re.getString(7)+" "+re.getDate(8)+" "+re.getDate(9));
+								}System.out.println("\nTo Go Back to Check rooms option Please click 1");
+							}else if(i==2) {
+								System.out.println("Please Enter Room Number Which You Want Check");
+								int i1=s.nextInt();
+								PreparedStatement p=con.prepareStatement("Select * from log where RNo=?");
+								p.setInt(1, i1);
+								ResultSet re=p.executeQuery();
+								while(re.next()) {
+									System.out.println(re.getInt(1)+" "+re.getString(2)+" "+re.getString(3)+" "+re.getInt(4)+" "+re.getInt(5)+" "+re.getInt(6)+" "+re.getString(7)+" "+re.getDate(8)+" "+re.getDate(9));
+								}System.out.println("\nTo Go Back to Check rooms option Please click 1");
+							}else if(i==3) {
+								System.out.println("Please select the Type \n For Standard Room Enter: SD\n For Suite Room Enter: SR\n  For Double Room Enter: DR");
+								String q=s.next();
+								PreparedStatement p=con.prepareStatement("select * from log where Type=?");
+								p.setString(1, q);
+								ResultSet re=p.executeQuery();
+								while(re.next()) {
+									System.out.println(re.getInt(1)+" "+re.getString(2)+" "+re.getString(3)+" "+re.getInt(4)+" "+re.getInt(5)+" "+re.getInt(6)+" "+re.getString(7)+" "+re.getDate(8)+" "+re.getDate(9));
+								}System.out.println("\nTo Go Back to Check rooms option Please click 1");
+								
+							}else if(i==4) {
+								System.out.print("Enter Room Number :");
+								int ro=s.nextInt();
+								PreparedStatement p=con.prepareStatement("Select CheckIn from log where RNo=?");
+								p.setInt(1, ro);
+								ResultSet re=p.executeQuery();
+								while(re.next()) {
+									System.out.println(re.getDate(1));
+								}System.out.println("\nTo Go Back to Check rooms option Please click 1");
+							}else if(i==5) {
+								System.out.print("Enter Room Number :");
+								int ro=s.nextInt();
+								PreparedStatement p=con.prepareStatement("Select CheckOut from log where RNo=?");
+								p.setInt(1, ro);
+								ResultSet re=p.executeQuery();
+								while(re.next()) {
+									System.out.println(re.getDate(1));
+								}System.out.println("\nTo Go Back to Check rooms option Please click 1");
+							}else {
+								System.out.println("Invalid Selection Please select in between 1-5");
+								System.out.println("\nTo Go Back to Check rooms option Please click 1");
+							}
+						}while(s.nextInt()==1);
+
+					}else if(op==2) {
+						System.out.println("Which room you want to Update:");
+						PreparedStatement p=con.prepareStatement("Select RNo from log");
+						ResultSet re=p.executeQuery();
+						while(re.next()) {
+							System.out.println(re.getInt(1));
+						}
+						int room=s.nextInt();
+						if(room!=0) {
+							System.out.println("Type : \nStandard \nSuite Room \nDouble Room");
+							String type=s.next();
+							System.out.println("Enter your Name:");
+							String cname=s.next();
+							System.out.println("Enter your Adhar:");
+							int cadhar=s.nextInt();
+							System.out.println("Enter your Contact");
+							int conatct=s.nextInt();
+							System.out.println("How many days are you going to Stay: ");
+							int days=s.nextInt();
+							System.out.println("Payment Yes or No");
+							String pay=s.next();
+							PreparedStatement p1=con.prepareStatement("update log set Type=?, Name=?, Adhar=?, Contact=?, Days=?, Payment=?, CheckIn=?, CheckOut=? where RNo=?");
+							p1.setString(1, type);
+							p1.setString(2,cname);
+							p1.setInt(3, cadhar);
+							p1.setInt(4, conatct);
+							p1.setInt(5, days);
+							p1.setString(6,pay);
+							System.out.println("Enter your CheckIn date in a format of yyyy-mm-dd :");
+							p1.setDate(7, Date.valueOf(s.next()));
+							System.out.println("Enter your CheckOut date in a format of yyyy-mm-dd :");
+							p1.setDate(8, Date.valueOf(s.next()));
+							p1.setInt(9, room);
+							p1.executeUpdate();
+							System.out.println("Updated Successfully");
+							}
+						}else if(op==3) {
+							System.out.println("which room details you want to delete");
+							int room1=s.nextInt();
+							PreparedStatement ps=con.prepareStatement("update log set Type=null, Name=null, Adhar=null, Contact=null, Days=null, Payment=null, CheckIn=null, CheckOut=null where RNo=?");
+							ps.setInt(1, room1);
+							ps.executeUpdate();
+							System.out.println("Successfully deleted customer details.");
+						}else if(op==4) {
+							PreparedStatement ps1=con.prepareStatement("insert into log values(?,?,?,?,?,?,?,?,?)");
+							ps1.setInt(1, s.nextInt());
+							ps1.setString(2, s.next());
+							ps1.setString(3, s.next());
+							ps1.setInt(4, s.nextInt());
+							ps1.setInt(5, s.nextInt());
+							ps1.setInt(6, s.nextInt());
+							ps1.setString(7, s.next());
+							ps1.setDate(8, Date.valueOf(s.next()));
+							ps1.setDate(9, Date.valueOf(s.next()));
+							ps1.executeUpdate();
+							System.out.println("Inserted");
+						}else {
+							System.out.println("Invalid option\n Select option in between 1-4");
+						}
+			}else {
+				System.out.println("Invalid mail or Password");
+			}
+			
+		}else if(scan==2) {
+			System.out.print("Please enter your Adhar:");
+			int ad=s.nextInt();
+			System.out.print("Please enter your contact:");
+			int cn=s.nextInt();
+			PreparedStatement p=con.prepareStatement("select * from log");
+			ResultSet re=p.executeQuery();
+			while(re.next()) {
+				int adhar=re.getInt("Adhar");
+				int contact=re.getInt("Contact");
+				if(ad==adhar && cn==contact) {
+					System.out.println("Log in successfull.\nPlease Select the below option: \n1) To Check Out \n2) Extend days");
+					int op=s.nextInt();
+					if(op==1) {
+						System.out.println("Thankyou for visiting our Hotel.\n Have A Good Day.");
+					}else if(op==2) {
+						System.out.println("To which date you want to Extend");
+						System.out.println("Please type Date in a format of yyyy-mm-dd:");
+						PreparedStatement p1=con.prepareStatement("update log set CheckOut=? where Adhar=?");
+						String dt=s.next();
+						p1.setDate(1,Date.valueOf(dt));
+						p1.setInt(2,adhar);
+						int result=p1.executeUpdate();
+						System.out.println("Thankyou Updated successfully.");
+					}else {
+						System.out.println("Invalid option \nSelect option in between 1-2");
+					}
+				}
+			}
+			
+		}else if(scan==3) {
+			System.out.println("To Book a room please select below options :");
+			System.out.println("Available room numbers :");
+			PreparedStatement p1=con.prepareStatement("select RNo from log where Adhar is null");
+			ResultSet re=p1.executeQuery();
+			while(re.next()) {
+				System.out.println(re.getInt(1));
+			}
+			int room=s.nextInt();
+			if( room!=0) {
+				System.out.println("Type : \nStandard \nSuite Room \nDouble Room");
+				String type=s.next();
+				System.out.println("Enter your Name:");
+				String cname=s.next();
+				System.out.println("Enter your Adhar");
+				int cadhar=s.nextInt();
+				System.out.println("Enter your Contact");
+				int conatct=s.nextInt();
+				System.out.println("How many days are you going to Stay: ");
+				int days=s.nextInt();
+				System.out.println("Payment Yes or No\n If yes type paid if no type not paid");
+				String pay=s.next();
+				PreparedStatement p=con.prepareStatement("update log set Type=?, Name=?, Adhar=?, Contact=?, Days=?, Payment=?, CheckIn=?, CheckOut=? where RNo=?");
+				p.setString(1, type);
+				p.setString(2,cname);
+				p.setInt(3, cadhar);
+				p.setInt(4, conatct);
+				p.setInt(5, days);
+				p.setString(6,pay);
+				System.out.println("Enter your CheckIn date in a format of yyyy-mm-dd :");
+				p.setDate(7, Date.valueOf(s.next()));
+				System.out.println("Enter your CheckOut date in a format of yyyy-mm-dd :");
+				p.setDate(8, Date.valueOf(s.next()));
+				p.setInt(9, room);
+				p.executeUpdate();
+				System.out.println("Your Room Booked Successfully.\n Thankyou");
+			}
+			
+		}else {
+			System.out.println("Enter a valid option between 1-3.");
+		}
+		
+	}
+
+}

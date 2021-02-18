@@ -1,0 +1,184 @@
+<!Doctype html>
+<html>
+  <head>
+         <title>  Event Management </title>
+		 <link rel="stylesheet" type="text/css" href="style5.css">
+  </head>
+  <style>
+  body
+  {
+    background-image : url(Image.jpg);
+       background-repeat: no-repeat;
+	   background-size : cover;
+	 }
+	 .header
+	 {
+	 text-align:center;
+	 font-size: 30px;
+	 padding-bottom:0px;
+	 }
+	 .container
+	 {
+	  width:400px;
+	  height:400px;
+	  padding:20px;
+	  
+	  margin:100px auto;
+	  border : 3px solid gray;
+	  font size : 10px;
+	  margin-top:10px
+	  }
+	  .form
+	  {
+	  padding:40px;
+	  }
+	  
+	  .form-control {
+	   margin-bottom:20px;
+	   position:relative;
+	   }
+	  .form-control label{
+       display : inline-block;
+       	margin bottom: 5px;
+      }
+     .form-control input{
+    width:100%;
+    border: 2px solid #f0f0f0;
+    border radius : 5px;
+    display : block;
+	font-family: var(--myfont);
+	}
+    	
+	  
+  </style>
+<body>
+    <div class="container">
+    <div class="header">
+	  <h2> Home </h2>
+	 </div>
+	 <form name = "register" action="#" onsubmit="return validations()" method="post">
+	 <form class="form" id="form">
+	 
+	 <div class="form-control">
+	  <label> Event Type: </label>
+	  <input type="text" name=" " id="Event Type" placeholder="Enter your Event Type">
+	 </div>
+	 
+	
+	<div class="form-control">
+	  <label> Location: </label>
+	  <input type="number" name=" " id="Location" placeholder="enter your Location">
+	 
+	</div>
+	<div class="form-control">
+	  <label> Date: </label>
+	  <input type="text" name=" " id="Date" placeholder="enter your Date">
+	 
+	
+	
+	</div>
+    <input type="Search Now" value="Search Now" class="button" name="">
+	 </form>
+    </div>
+	
+	
+	<script>
+	  function validations() {
+	   var Et = document.forms["Register"]["Event Type"]; 
+	   var loc = document.forms["Register"]["Location"]; 
+	    var Date = document.forms["Register"]["Date"]; 
+		  
+		  
+		   if(fname_validation(Event Type)){
+           if(email_validation(Location)){
+	       if(phone_validation(Date)){
+	       
+	      
+	 }
+	 }
+	 }
+	 return false;
+	 }
+	 
+	 function Et_validation(Event Type){
+	  var letters = /^[A-Za-z]+$/;
+	  if(Et.value.match(letters)){
+	    return true;
+	  }else {
+	    alert("Please enter alphabet charecters for the type of event");
+		Et.focus();
+		return false;
+	  } 
+	}
+	
+	 
+	function loc_validation(location){
+	var letters = /^[A-Za-z]+$/;
+	  if(loc.value.match(letters)){
+	    return true;
+	  }else {
+	    alert("Please enter alphabet charecters for location");
+		loc.focus();
+		return false;
+	  } 
+	}
+	  
+	
+	function phone_validation(phonenuber){
+	  var numbers = /^[0-9]+$/;
+	  if(phonenumber.value.match(numbers) && phonenumber.value.length == 10){
+	    return true;
+	  }else{
+	    alert("Please enter valid number");
+	   phonenumber.focus();
+	   return false;
+	  }
+	} 
+	
+	function validatedate(Date){      
+    let date = /^(0?[1-9]|1[0-2])[\/](0?[1-9]|[1-2][0-9]|3[01])[\/]\d{4}$/;      
+          
+        
+    if(dateString.match(dateformat)){      
+        let operator = dateString.split('/');      
+      
+            
+        let datepart = [];      
+        if (operator.length>1){      
+            pdatepart = dateString.split('/');      
+        }      
+        let month= parseInt(datepart[0]);      
+        let day = parseInt(datepart[1]);      
+        let year = parseInt(datepart[2]);      
+              
+       
+        let ListofDays = [31,28,31,30,31,30,31,31,30,31,30,31];      
+        if (month==1 || month>2){      
+            if (day>ListofDays[month-1]){      
+                    
+                return false;      
+            }      
+        }else if (month==2){      
+            let leapYear = false;      
+            if ( (!(year % 4) && year % 100) || !(year % 400)) {      
+                leapYear = true;      
+            }      
+            if ((leapYear == false) && (day>=29)){      
+                return false;      
+            }else      
+            if ((leapYear==true) && (day>29)){      
+                console.log('Invalid date format!');      
+                return false;      
+            }      
+        }      
+    }else{      
+        console.log("Invalid date format!");      
+        return false;      
+    }      
+    return true;      
+}   
+	
+	
+	</script>
+</body>
+</html>

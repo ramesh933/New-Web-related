@@ -1,0 +1,12 @@
+<!Doctype html>
+<html>
+<head>  </head>
+<body>
+<div class="container">
+    <div class="header">
+<h4> About </h4>
+Events bring individuals together. After all, we are here to make connections, renew relationships, and strengthen bonds, aren’t we? 
+In this age, we all mostly connect through social media. How often do we meet and celebrate the nostalgic old times?
+ We can’t deny the fact that special occasions help us connect in person and celebrate together with endless joy.
+</body>
+</html>
